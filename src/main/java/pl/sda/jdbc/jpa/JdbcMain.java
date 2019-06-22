@@ -9,8 +9,24 @@ public class JdbcMain {
         statement();
         System.out.println("************************");
         preparedStatement();
+        callableStatement();
 
 
+
+    }
+
+    private static void callableStatement() {
+        try(Connection connection = getConnection();){
+            String query = "{call sdajdbc.getName(?,?)}";
+            CallableStatement callableStatement = connection.prepareCall(query);
+            callableStatement.setInt(1,7654);
+            callableStatement.registerOutParameter(2,Types.VARCHAR);
+            callableStatement.execute();
+            String string = callableStatement.getString(2);
+            System.out.println(string);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
