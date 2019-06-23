@@ -5,27 +5,42 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@ToString
-@Getter
+@ToString(exclude = "transientField")
+@Getter //opcjonalne
 @Setter
 @Entity //must have
+@Table(name = "Customers")  //opcjonalne
 public class Customer {
 
     @Id //must have
     @GeneratedValue(strategy = GenerationType.AUTO) //must have
     private Integer id;
 
+    @Column(name = "first_name")  //opcjonalne
     private String firstname;
+    @Column(name = "last_name")
     private String lastname;
     private Integer age;
-    private String city;
-    private String postalCode;
+    private String pesel;
 
     @OneToMany
     private List<Order> orders;
 
+    @Embedded
+    private Adress adress;
+
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus customerStatus;
+
+    @ElementCollection
+    private Set<String> nicknames = new HashSet<String>();
+
     @Transient //to nie będzie się zapisywać
-    private String string;
+    private String transientField;
+
+
 }

@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
 
 public class JpaMain {
@@ -19,6 +20,12 @@ public class JpaMain {
 
         System.out.println(findCustomersBySurname(entityManager, "Kowal"));
 
+        System.out.println("******************");
+
+        System.out.println(findCustomerByPesel("123", entityManager));
+
+        entityManager.close();
+        ENTITY_MANAGER_FACTORY.close();
     }
 
     private static List<Customer> findCustomersBySurname(EntityManager entityManager, String surname) {
@@ -35,14 +42,23 @@ public class JpaMain {
         customer.setFirstname("Jan");
         customer.setLastname("Kowal");
         customer.setAge(33);
-        customer.setCity("Warszawa");
-        customer.setPostalCode("89-123");
+        customer.setCustomerStatus(CustomerStatus.ACTIVATED);
+        customer.setPesel("123");
+        customer.getNicknames().add("adaś");
 
         entityManager.getTransaction().begin();
         entityManager.persist(customer);
         entityManager.getTransaction().commit();
 
         return customer;
+    }
+
+    public static Customer findCustomerByPesel(String pesel, EntityManager entityManager){
+        TypedQuery<Customer> query = entityManager.createQuery(
+                "select c from Customer c where c.pesel = :ps", Customer.class
+        );
+        query.setParameter("ps", pesel);
+        return query.getSingleResult();
     }
 
 
