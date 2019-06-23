@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name="Orders")
 public class Order {

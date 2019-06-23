@@ -28,7 +28,7 @@ public class Customer {
     private Integer age;
     private String pesel;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @Embedded
@@ -40,7 +40,7 @@ public class Customer {
     @ElementCollection
     private Set<String> nicknames = new HashSet<String>();
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY)
     private Cart cart;
 
     @Transient //to nie będzie się zapisywać

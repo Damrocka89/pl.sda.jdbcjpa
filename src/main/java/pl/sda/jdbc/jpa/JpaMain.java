@@ -23,8 +23,9 @@ public class JpaMain {
 //        System.out.println(findCustomersBySurname(entityManager, "Kowal"));
 //
 //        System.out.println("******************");
-//
-//        System.out.println(findCustomerByPesel("123", entityManager));
+
+        Customer customerByPesel = findCustomerByPesel("124", entityManager);
+        System.out.println(customerByPesel);
 
         entityManager.close();
         ENTITY_MANAGER_FACTORY.close();
