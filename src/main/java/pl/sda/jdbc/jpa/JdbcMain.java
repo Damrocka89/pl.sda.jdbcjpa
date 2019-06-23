@@ -15,7 +15,7 @@ public class JdbcMain {
 //        preparedStatement2();
 //        System.out.println("******************");
  //       preparedStatement3();
-        sqlInjectionStatementName("King'; delete from sdajdbc.employee e where e.empno = 7369; -- ");
+        sqlInjectionStatementName("King'; delete from sdajdbc.employee where empno = 7369; -- ");
 
 
     }

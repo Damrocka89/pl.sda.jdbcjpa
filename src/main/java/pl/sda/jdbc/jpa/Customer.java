@@ -1,11 +1,11 @@
 package pl.sda.jdbc.jpa;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @ToString
 @Getter
@@ -22,6 +22,9 @@ public class Customer {
     private Integer age;
     private String city;
     private String postalCode;
+
+    @OneToMany
+    private List<Order> orders;
 
     @Transient //to nie będzie się zapisywać
     private String string;
