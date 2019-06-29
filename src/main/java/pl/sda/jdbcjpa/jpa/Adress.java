@@ -1,4 +1,4 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jpa;
 
 import lombok.Getter;
 import lombok.Setter;

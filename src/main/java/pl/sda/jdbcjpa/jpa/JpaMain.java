@@ -1,21 +1,18 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jpa;
 
 import com.google.common.collect.Lists;
+import pl.sda.jdbcjpa.JpaDao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class JpaMain {
 
-    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
-            Persistence.createEntityManagerFactory("configurationOfDB"); //sdajpa - tak sie nazywa konfiguracja dostepu do bazy danych, ktora jest wpisana w persistence.xml
 
     public static void main(String[] args) {
-        EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityManager entityManager = JpaDao.getEntityManager();
         createCustomer(entityManager);
 
 //        System.out.println("*********************");
@@ -27,8 +24,23 @@ public class JpaMain {
         Customer customerByPesel = findCustomerByPesel("124", entityManager);
         System.out.println(customerByPesel);
 
+        addNewBook("Pan Tadzio", new Ebook(), entityManager);
+
+        System.out.println(basicNamedQuery(entityManager, "Jan"));
+
         entityManager.close();
-        ENTITY_MANAGER_FACTORY.close();
+        JpaDao.getEntityManagerFactory().close();
+    }
+
+    private static List<Customer> basicNamedQuery(EntityManager entityManager, String name) {
+        TypedQuery<Customer> findByFirstname = entityManager.createNamedQuery("findByFirstname", Customer.class);
+        findByFirstname.setParameter("fn", name);
+        return findByFirstname.getResultList();
+    }
+
+    private static void addNewBook(String title, Product book, EntityManager entityManager) {
+        book.setProductName("Pan Tadzio");
+        JpaDao.saveEntity(book);
     }
 
     private static List<Customer> findCustomersBySurname(EntityManager entityManager, String surname) {
@@ -42,28 +54,28 @@ public class JpaMain {
 
     public static Customer createCustomer(EntityManager entityManager) {
         Customer customer = new Customer();
-                customer.setFirstname("Jan");
+        customer.setFirstname("Jan");
         customer.setLastname("Nowak");
         customer.setAge(37);
         customer.setCustomerStatus(CustomerStatus.ACTIVATED);
         customer.setPesel("124");
         customer.getNicknames().add("bla");
 
-        OrderLine orderLine=new OrderLine();
+        OrderLine orderLine = new OrderLine();
         orderLine.setPrice(BigDecimal.valueOf(50.50));
         orderLine.setProductName("Book");
 
-        OrderLine orderLine2=new OrderLine();
+        OrderLine orderLine2 = new OrderLine();
         orderLine2.setPrice(BigDecimal.valueOf(550.50));
         orderLine2.setProductName("Bike");
 
-        Order order1=new Order();
+        Order order1 = new Order();
         order1.setCustomerName(customer.getFirstname());
         order1.setTotalCost(BigDecimal.valueOf(100));
         order1.setCustomer(customer);
         order1.setOrderLine(Lists.newArrayList(orderLine));
 
-        Order order2=new Order();
+        Order order2 = new Order();
         order2.setCustomerName(customer.getFirstname());
         order2.setTotalCost(BigDecimal.valueOf(300));
         order2.setCustomer(customer);
@@ -72,7 +84,7 @@ public class JpaMain {
         orderLine.setOrderHeader(order1);
         orderLine2.setOrderHeader(order2);
 
-        customer.setOrders(Lists.newArrayList(order1,order2));
+        customer.setOrders(Lists.newArrayList(order1, order2));
 
         Cart cart = new Cart();
         cart.setCustomer(customer);
@@ -89,7 +101,7 @@ public class JpaMain {
         return customer;
     }
 
-    public static Customer findCustomerByPesel(String pesel, EntityManager entityManager){
+    public static Customer findCustomerByPesel(String pesel, EntityManager entityManager) {
         TypedQuery<Customer> query = entityManager.createQuery(
                 "select c from Customer c where c.pesel = :ps", Customer.class
         );

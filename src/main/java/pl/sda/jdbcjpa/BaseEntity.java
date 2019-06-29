@@ -1,6 +1,7 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @Getter
+@ToString
 @MappedSuperclass //encje dziedziczące dostaną te pola
 public abstract class BaseEntity {
 

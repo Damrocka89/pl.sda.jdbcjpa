@@ -1,8 +1,9 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jpa;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.sda.jdbcjpa.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,7 +13,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name="Orders")
-public class Order extends BaseEntity{
+@ToString(exclude = "customer")
+public class Order extends BaseEntity {
 
 
     private BigDecimal totalCost;

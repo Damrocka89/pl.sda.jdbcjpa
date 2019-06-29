@@ -1,8 +1,10 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jpa;
 
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import pl.sda.jdbcjpa.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,7 +12,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-public class OrderLine extends BaseEntity{
+@ToString(exclude = "orderHeader")
+public class OrderLine extends BaseEntity {
 
 
 

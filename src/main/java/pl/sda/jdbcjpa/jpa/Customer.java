@@ -1,8 +1,9 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jpa;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.sda.jdbcjpa.BaseEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,6 +15,12 @@ import java.util.Set;
 @Setter
 @Entity //must have
 @Table(name = "Customers")  //opcjonalne
+@NamedQueries(
+        {
+                @NamedQuery(name="findByFirstname",
+                query = "select c from Customer c where c.firstname = :fn")  //nazwy pól z javy
+        }
+)
 public class Customer extends BaseEntity {
 
 

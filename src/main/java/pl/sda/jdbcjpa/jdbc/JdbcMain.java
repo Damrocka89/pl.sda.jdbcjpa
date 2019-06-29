@@ -1,4 +1,4 @@
-package pl.sda.jdbc.jpa;
+package pl.sda.jdbcjpa.jdbc;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -163,7 +163,7 @@ public class JdbcMain {
     private static Connection getConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306?useUnicode=true&serverTimezone=UTC", //protokół jdbc
+                    "jdbcjpa:mysql://localhost:3306?useUnicode=true&serverTimezone=UTC", //protokół jdbcjpa
                     "root", "1910");
         } catch (SQLException e) {
             e.printStackTrace();
