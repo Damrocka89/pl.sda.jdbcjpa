@@ -49,14 +49,28 @@ public class JpaMain {
         customer.setPesel("124");
         customer.getNicknames().add("bla");
 
+        OrderLine orderLine=new OrderLine();
+        orderLine.setPrice(BigDecimal.valueOf(50.50));
+        orderLine.setProductName("Book");
+
+        OrderLine orderLine2=new OrderLine();
+        orderLine2.setPrice(BigDecimal.valueOf(550.50));
+        orderLine2.setProductName("Bike");
+
         Order order1=new Order();
         order1.setCustomerName(customer.getFirstname());
         order1.setTotalCost(BigDecimal.valueOf(100));
         order1.setCustomer(customer);
+        order1.setOrderLine(Lists.newArrayList(orderLine));
+
         Order order2=new Order();
         order2.setCustomerName(customer.getFirstname());
         order2.setTotalCost(BigDecimal.valueOf(300));
         order2.setCustomer(customer);
+        order2.setOrderLine(Lists.newArrayList(orderLine2));
+
+        orderLine.setOrderHeader(order1);
+        orderLine2.setOrderHeader(order2);
 
         customer.setOrders(Lists.newArrayList(order1,order2));
 
@@ -65,12 +79,12 @@ public class JpaMain {
 
         customer.setCart(cart);
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(order1);
-        entityManager.persist(order2);
-        entityManager.persist(cart);
-        entityManager.persist(customer);
-        entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();  //transakcja jest potrzebna gdy wystepuja zmiany (persistence context po drodze miedzy entity menedzerem a baza danych)
+//        entityManager.persist(order1);
+//        entityManager.persist(order2);
+//        entityManager.persist(cart);
+        entityManager.persist(customer);  //jesli jest cascade persist to zapisze tez order i cart do DB
+        entityManager.getTransaction().commit(); //zapisuje z persitence context do bazy danych
 
         return customer;
     }

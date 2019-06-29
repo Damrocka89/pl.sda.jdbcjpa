@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +14,9 @@ import java.util.Set;
 @Setter
 @Entity //must have
 @Table(name = "Customers")  //opcjonalne
-public class Customer {
+public class Customer extends BaseEntity {
 
-    @Id //must have
-    @GeneratedValue(strategy = GenerationType.AUTO) //must have
-    private Integer id;
+
 
     @Column(name = "first_name")  //opcjonalne
     private String firstname;
@@ -28,7 +25,7 @@ public class Customer {
     private Integer age;
     private String pesel;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Order> orders;
 
     @Embedded
@@ -40,7 +37,7 @@ public class Customer {
     @ElementCollection
     private Set<String> nicknames = new HashSet<String>();
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Cart cart;
 
     @Transient //to nie będzie się zapisywać

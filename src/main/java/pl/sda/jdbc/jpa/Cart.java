@@ -8,11 +8,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Cart {
+public class Cart extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
 
     @OneToOne
     private Customer customer;
