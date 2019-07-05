@@ -1,4 +1,4 @@
-package pl.sda.jdbcjpa;
+package pl.sda.jdbcjpa.jpaAll;
 
 import lombok.Getter;
 import lombok.ToString;

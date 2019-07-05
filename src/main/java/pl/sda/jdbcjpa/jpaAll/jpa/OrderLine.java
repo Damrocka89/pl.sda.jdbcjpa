@@ -1,10 +1,10 @@
-package pl.sda.jdbcjpa.jpa;
+package pl.sda.jdbcjpa.jpaAll.jpa;
 
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pl.sda.jdbcjpa.BaseEntity;
+import pl.sda.jdbcjpa.jpaAll.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

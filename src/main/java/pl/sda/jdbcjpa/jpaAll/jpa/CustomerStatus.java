@@ -1,4 +1,4 @@
-package pl.sda.jdbcjpa.jpa;
+package pl.sda.jdbcjpa.jpaAll.jpa;
 
 
 public enum CustomerStatus {

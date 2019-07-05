@@ -1,7 +1,7 @@
-package pl.sda.jdbcjpa.jpa2;
+package pl.sda.jdbcjpa.jpaAll.jpa2;
 
 import lombok.*;
-import pl.sda.jdbcjpa.BaseEntity;
+import pl.sda.jdbcjpa.jpaAll.BaseEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

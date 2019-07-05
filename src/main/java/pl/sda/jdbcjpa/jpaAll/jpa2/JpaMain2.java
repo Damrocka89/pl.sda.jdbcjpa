@@ -1,7 +1,7 @@
-package pl.sda.jdbcjpa.jpa2;
+package pl.sda.jdbcjpa.jpaAll.jpa2;
 
 import com.google.common.collect.Lists;
-import pl.sda.jdbcjpa.JpaDao;
+import pl.sda.jdbcjpa.jpaAll.JpaDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
